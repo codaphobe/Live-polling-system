@@ -1,0 +1,16 @@
+# Ignore node_modules in both frontend and backend
+live-polling-system-frontend/node_modules/
+live-polling-system-backend/node_modules/
+
+# Ignore logs
+*.log
+
+# Ignore text files
+*.txt
+
+# Ignore environment variable files
+.env
+
+# Ignore system files
+.DS_Store
+Thumbs.db
