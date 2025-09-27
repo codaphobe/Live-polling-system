@@ -8,10 +8,10 @@ console.log("MongoDB URI from env:", process.env);
 const mongoURI = process.env.MONGO_URI;
 console.log("Connecting to MongoDB with URI:", process.env.MONGO_URI);
 
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+mongoose.connect(mongoURI)
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
 
 const db = mongoose.connection;
 
