@@ -11,6 +11,8 @@ live-polling-system-backend/node_modules/
 # Ignore environment variable files
 .env
 
+problems.md
+
 # Ignore system files
 .DS_Store
 Thumbs.db
