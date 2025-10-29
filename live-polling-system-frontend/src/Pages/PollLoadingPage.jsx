@@ -8,12 +8,9 @@ export const PollLoadingPage = () => {
   const navigate = useNavigate();
   const socket = useSocket();
     useEffect(() => {
-      console.log("Setting up newPoll listener in loading page");
 
       // Define handler separately for better cleanup
       const handleNewPoll = (poll) => { 
-        console.log("Received new poll, cleaning up and navigating");
-        console.log("Poll Data:", poll);
         // Clean up listener before navigation
         socket.off("newPoll", handleNewPoll);
         navigate("/student/poll", { state: { poll } });
@@ -24,7 +21,6 @@ export const PollLoadingPage = () => {
 
       // Cleanup when component unmounts
       return () => {
-        console.log("Loading page unmounting, cleaning up listener");
         socket.off("newPoll", handleNewPoll);
       };
   }, [socket, navigate]);

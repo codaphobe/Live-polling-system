@@ -36,7 +36,6 @@ export const StudentPoll = () => {
 
   const handleAnswerSelect = (optionId) => {
     if (!hasSubmitted && timeLeft > 0) {
-        console.log("Selected option:", optionId);
       setSelectedAnswer(optionId);
     }
   };
@@ -44,7 +43,6 @@ export const StudentPoll = () => {
     useEffect(() => {
       // Set up socket event listeners
       socket.on("pollUpdated", (updatedPoll) => {
-        console.log("Updated poll:", updatedPoll);
         setCurrentPoll(updatedPoll);
       });
       
@@ -71,7 +69,6 @@ export const StudentPoll = () => {
         const studentId = localStorage.getItem("studentId");
 
         // Emit vote to backend
-        console.log('Submitting vote for option index:', selectedAnswer);
         socket.emit("submitVote", {studentId, optionIndex: selectedAnswer });
 
         // Disable further voting

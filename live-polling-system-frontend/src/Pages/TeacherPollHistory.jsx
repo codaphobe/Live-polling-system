@@ -13,18 +13,15 @@ export const TeacherPollHistory = () => {
 
    useEffect(() => {
     // Request poll history
-    console.log("Requesting poll history");
     socket.emit("getPollHistory");
 
     // Listen for response
     socket.on("pollHistory", (history) => {
-      console.log("Received poll history:", history);
       setPollHistory(history);
       setLoading(false);
     });
 
     socket.on("pollHistoryError", (err) => {
-      console.error("Poll history fetch error:", err.message);
       setLoading(false);
     });
 

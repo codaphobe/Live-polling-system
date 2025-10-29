@@ -16,15 +16,12 @@ export const TeacherPollResults = () => {
     // if (!poll) return null;
 
     useEffect(() => {
-      console.log("TeacherPollResults mounted with poll:", poll);
         if (!poll) {
-          console.warn("No poll data found, redirecting...");
           navigate("/teacher"); // fallback if state missing
           return;
         }
 
         if (poll.active === false) {
-          console.warn("Poll already ended, redirecting teacher...");
           navigate("/teacher");
           return;
         }
@@ -36,7 +33,6 @@ export const TeacherPollResults = () => {
 
         socket.emit('getActivePoll');
         socket.once('activePoll', (activePoll) => {
-          console.log("Fetched active poll:", activePoll.active);
           if (!activePoll.active) {
             navigate("/teacher");
           }
@@ -123,7 +119,6 @@ export const TeacherPollResults = () => {
             {/* Options with Results */}
             <div className="space-y-3">
               {currentPoll.options.map((option, idx) => {
-                console.log("Poll options",poll.votes);
                 const percentage = getPercentage(idx);  
                 // const voteCount = results.results[option.id] || 0;
                 const voteCount = poll.votes[idx] || 0;

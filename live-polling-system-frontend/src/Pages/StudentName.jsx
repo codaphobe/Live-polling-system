@@ -9,11 +9,9 @@ export const StudentName = () => {
 
   const handleJoinPoll = () => {
     if (name.trim()) {
-      console.log("Attempting to join poll with name:", name);
       socket.emit("studentJoin", { name });
 
       socket.once("studentRegistered", (data) => {
-        console.log("Student registered:", data);
 
         localStorage.setItem("studentId", data.studentId);
         navigate("/student/loading");

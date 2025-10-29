@@ -17,7 +17,6 @@ function SocketProvider({ children }) {
 
   // Initialize socket only once using useRef
   if (!socketRef.current) {
-    console.log("Creating new socket instance");
     socketRef.current = io(backendUrl, {
       reconnection: true,
       reconnectionAttempts: 5,
@@ -30,20 +29,15 @@ function SocketProvider({ children }) {
   useEffect(() => {
     const socket = socketRef.current;
 
-    const onConnect = () => {
-      console.log('Socket connected with ID:', socket.id);
-    };
+    const onConnect = () => {};
 
     const onDisconnect = (reason) => {
-      console.log('Socket disconnected:', reason);
       if (reason === 'transport close' || reason === 'ping timeout') {
         socket.connect();
       }
     };
 
-    const onError = (error) => {
-      console.error('Connection error:', error.message);
-    };
+    const onError = (error) => {};
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);

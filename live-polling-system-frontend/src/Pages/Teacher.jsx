@@ -18,7 +18,6 @@ export const Teacher = () => {
       text: "",
       isCorrect: false
     };
-    console.log("New Option: ",newOption);
     setOptions([...options, newOption]);
   };
 
@@ -29,13 +28,11 @@ export const Teacher = () => {
       alert("Please fill out question and options before submitting");
       return;
     }
-    console.log("Options: ",options);
     const correctOption = options.find(o => o.isCorrect); // backend expects index from 0
     if (!correctOption) {
       alert("Please select a correct answer");
       return;
     }
-    console.log("Correct Option",correctOption);
     
     const payload = {
       question,
@@ -44,11 +41,9 @@ export const Teacher = () => {
       correctAnswer : correctOption.id
     };
 
-    console.log("Submitting poll:", payload);
     socket.emit("createPoll", payload);
 
     socket.once("pollCreated", (poll) => {
-    console.log("Poll created:", poll);
 
     navigate("/teacher/poll-results", { state: { poll } });
     });

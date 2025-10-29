@@ -23,7 +23,6 @@ function startPollTimer(io, duration) {
     await pollToSave.save();
     
     io.emit('pollClosed', poll);
-    console.log('Poll auto-closed after', duration / 1000, 'seconds');
   }, duration);
 }
 

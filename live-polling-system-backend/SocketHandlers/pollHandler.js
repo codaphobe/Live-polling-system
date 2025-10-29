@@ -30,9 +30,7 @@ function registerPollHandlers(io, socket) {
       io.emit('pollCreated', poll);
       socket.broadcast.emit('newPoll',poll);
       startPollTimer(io, timeLimit || 60000); // default 60s
-      console.log('Poll created and broadcasted:', poll);
     } catch (err) {
-      console.error('createPoll error:', err);
       socket.emit('createPollError', { message: err.message });
     }
   });
@@ -41,7 +39,7 @@ function registerPollHandlers(io, socket) {
   socket.on('submitVote', (payload) => {
     const body = payload?.data || payload;
     const { studentId, optionIndex } = body || {};
-    console.log('Received vote submission:', { studentId, optionIndex });
+    
 
     if (!studentId) {
       socket.emit('voteError', 'Missing studentId');
@@ -54,9 +52,8 @@ function registerPollHandlers(io, socket) {
       socket.emit('voteError', 'Student not registered');
       return;
     }
-    console.log("option index",optionIndex);  
     const result = vote(studentId, optionIndex);
-    console.log('Vote result:', result);
+    
 
     if (result.success) {
       io.emit('pollUpdated', result.poll);
@@ -70,7 +67,6 @@ function registerPollHandlers(io, socket) {
       const history = await Poll.find().sort({ createdAt: -1 }); // newest first
       socket.emit("pollHistory", history);
     } catch (err) {
-      console.error("Error fetching poll history:", err);
       socket.emit("pollHistoryError", { message: err.message });
     }
   });
